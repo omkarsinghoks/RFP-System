@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>New Quote Submitted</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .header h2 {
+            color: #007BFF;
+        }
+        .content {
+            margin-bottom: 20px;
+        }
+        .footer {
+            text-align: center;
+            font-size: 12px;
+            color: #777;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h2>New Quote Submitted</h2>
+        </div>
+        <div class="content">
+            <p><strong>RFP Name:</strong> {{ rfp.item_name }}</p>
+            <p><strong>Vendor Name:</strong> {{ vendor.user.first_name }} {{ vendor.user.last_name }}</p>
+            <p><strong>Vendor Email:</strong> {{ vendor.user.email }}</p>
+            <p><strong>Vendor Price:</strong> {{ quote.vendor_price }}</p>
+            <p><strong>Quantity:</strong> {{ quote.quantity }}</p>
+            <p><strong>Item Description:</strong> {{ quote.item_description }}</p>
+        </div>
+        <div class="footer">
+            <p>Thank you,<br>The RFP System</p>
+        </div>
+    </div>
+</body>
+</html>

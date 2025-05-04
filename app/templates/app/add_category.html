@@ -1,0 +1,37 @@
+{% extends "app/admin_page.html" %}
+
+{% block non_extendable_content %}
+           
+{% endblock %}
+{% block content %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/add_category.css' %}">
+<h3>RFP Select Category</h3>
+
+<div class="rfp-select-category">
+    <form action="{% url 'rpf_create' %}" method="post" class="form-category">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="category">Categories*</label>
+            <select id="category" name="category" required>
+                {% for category in categories %}
+                    <option value="{{ category.id }}">{{ category.category_name }}</option>
+                {% endfor %}
+            </select>
+
+            {% comment %} <select id="category" name="category" required>
+                {% for category in categories %}
+                    <option value="{{ category.id }}">{{ category.name }}</option>
+                {% endfor %}
+            </select> {% endcomment %}
+
+
+        </div>
+        <div class="form-actions">
+            <button type="submit" class="btn-submit">Submit</button>
+            {% comment %} <button  class="btn-cancel">Cancel</button> {% endcomment %}
+            <a href="{% url 'rfp_list' %}"><button type="button" class="btn-cancel">Cancel</button></a>
+        </div>
+    </form>
+</div>
+{% endblock %}

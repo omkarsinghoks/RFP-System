@@ -1,0 +1,83 @@
+.vendors-table {
+    margin-top: 20px;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+th {
+    background-color: #27333A;
+}
+
+.status {
+    padding: 5px 10px;
+    border-radius: 4px;
+    color: #fff;
+    font-weight: bold;
+}
+
+.status.rejected {
+    background-color: #e74c3c;
+}
+
+.status.approved {
+    background-color: #2ecc71;
+}
+
+.action-link {
+    color: #007bff;
+    text-decoration: none;
+}
+
+.action-link:hover {
+    text-decoration: underline;
+}
+.table-header {
+    background-color: #27333A;
+    color: white;
+}
+.vendors-header-above
+{
+     display: flex;
+     justify-content:space-between;
+        align-items: center;
+}
+.vendors-header-above a
+{
+    margin: 0;
+    padding: 0;
+    text-decoration: none;
+    color: black;
+}
+/* .add-rfp
+{
+    background-color: #007bff;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-decoration: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    display: block;
+} */
+.category-add
+{
+     display: flex;
+     width: 100%;
+     align-items: center;
+     flex-direction: row;
+
+}

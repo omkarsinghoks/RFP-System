@@ -1,0 +1,178 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>RFP System - Vendor Registration</title>
+    <link rel="stylesheet" href="{% static 'css/vendor_register.css' %}">
+    <style>
+        /* Floating message styles */
+        .text-danger {
+            color: #dc3545; /* Bootstrap red color for danger */
+            font-size: 14px; /* Adjust font size */
+            font-weight: bold; /* Make the text bold */
+            margin-top: 5px; /* Add some spacing above the message */
+            display: block; /* Ensure it appears on a new line */
+        }
+        .floating-message {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            padding: 15px 20px;
+            border-radius: 5px;
+            color: #fff;
+            font-size: 14px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            display: none; /* Initially hidden */
+        }
+        .floating-message.success {
+            background-color: #28a745; /* Green for success */
+        }
+        .floating-message.error {
+            background-color: #dc3545; /* Red for error */
+        }
+    </style>
+    
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h2>Welcome to RFP System!</h2>
+            <span>Welcome {{ request.user.first_name }}</span>
+        </div>
+        <div class="form-container">
+            <form method="POST" action="{% url 'registerVendor' %}">
+                {% csrf_token %}
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>First name*</label>
+                        <input type="text" name="first_name" placeholder="Enter Firstname" value="{{ form_data.first_name|default:'' }}">
+                        {% if field_errors.first_name %}
+                        <span class="text-danger">{{ field_errors.first_name }}</span>
+                    {% endif %} 
+                                    </div>
+                    <div class="form-group">
+                        <label>Last Name*</label>
+                        <input type="text" name="last_name" placeholder="Enter Lastname" value="{{ form_data.last_name|default:'' }}">
+                        {% if field_errors.last_name %}
+                        <span class="text-danger">{{ field_errors.last_name }}</span>
+                    {% endif %} 
+                    </div>
+                </div>
+
+                <div class="form-group full-width">
+                    <label>Email*</label>
+                    <input type="email" name="email" placeholder="Enter Email" value="{{ form_data.email|default:'' }}">
+                    {% if field_errors.email %}
+                    <span class="text-danger">{{ field_errors.email }}</span>
+                {% endif %} 
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Password*</label>
+                        <input type="password" placeholder="Enter Password" name="password">
+                        {% if field_errors.password %}
+                        <span class="text-danger">{{ field_errors.password }}</span>
+                    {% endif %} 
+                    </div>
+                    <div class="form-group">
+                        <label>Confirm Password*</label>
+                        <input type="password" placeholder="Enter Confirm Password" name="confirm_password">
+                        {% if field_errors.confirm_password %}
+                        <span class="text-danger">{{ field_errors.confirm_password }}</span>
+                    {% endif %} 
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Revenue (Last 3 Years in Lacks)*</label>
+                        <input type="text" name="revenue" placeholder="Enter Revenue" value="{{ form_data.revenue|default:'' }}">
+                        {% if field_errors.confirm_password %}
+                        <span class="text-danger">{{ field_errors.confirm_password }}</span>
+                    {% endif %} 
+                    </div>
+                    <div class="form-group">
+                        <label>No of Employees*</label>
+                        <input type="text" name="no_of_employees" placeholder="No of Employees" value="{{ form_data.no_of_employees|default:'' }}">
+                        {% if field_errors.no_of_employees %}
+            <span class="text-danger">{{ field_errors.no_of_employees }}</span>
+        {% endif %}
+                        
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>GST No*</label>
+                        <input type="text" name="gst_no" placeholder="Enter GST No" value="{{ form_data.gst_no|default:'' }}">
+                        {% if field_errors.gst_no %}
+            <span class="text-danger">{{ field_errors.gst_no }}</span>
+        {% endif %}
+                    </div>
+                    <div class="form-group">
+                        <label>PAN No*</label>
+                        <input type="text" name="pan_no" placeholder="Enter PAN No" value="{{ form_data.pan_no|default:'' }}">
+                        {% if field_errors.pan_no %}
+            <span class="text-danger">{{ field_errors.pan_no }}</span>
+        {% endif %}
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Phone No*</label>
+                        <input type="tel" name="mobile_number" placeholder="Enter Phone No" value="{{ form_data.mobile_number|default:'' }}">
+                        {% if field_errors.mobile_number %}
+            <span class="text-danger">{{ field_errors.mobile_number }}</span>
+        {% endif %}
+                    </div>
+                    <div class="form-group">
+                        <label for="categories">Categories</label>
+                        <select id="categories" name="categories" multiple>
+                            {% for category in categories %}
+                                <option value="{{ category.id }}">{{ category.category_name }}</option>
+                            {% endfor %}
+                        </select>
+                        {% if field_errors.categories %}
+                            <span class="text-danger">{{ field_errors.categories }}</span>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <button class="submit-btn">Register</button>
+                <div class="form-footer">
+                    <a href="{% url 'registerAdmin' %}" class="vendor-link">Register as Admin</a>
+                    <a href="{% url 'forgotPassword' %}" class="forgot-password">Forgot your password?</a>
+                    <a href="{% url 'login' %}" >Already Registered ? Login</a>
+                </div>
+            </form>
+        </div>
+        <div id="floating-message" class="floating-message"></div>
+    </div>
+    
+    <script>
+        // Display Django messages as floating pop-ups
+        document.addEventListener('DOMContentLoaded', function () {
+            const floatingMessage = document.getElementById('floating-message');
+            {% if messages %}
+                {% for message in messages %}
+                    floatingMessage.textContent = "{{ message }}";
+                    {% if message.tags == 'success' %}
+                        floatingMessage.classList.add('success');
+                    {% else %}
+                        floatingMessage.classList.add('error');
+                    {% endif %}
+                    floatingMessage.style.display = 'block';
+                    setTimeout(() => {
+                        floatingMessage.style.display = 'none';
+                    }, 5000); // Auto-hide after 5 seconds
+                {% endfor %}
+            {% endif %}
+        });
+    </script>
+</body>
+
+</html>

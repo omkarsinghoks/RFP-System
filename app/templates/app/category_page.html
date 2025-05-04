@@ -1,0 +1,70 @@
+{% extends 'app/admin_page.html' %}
+
+{% block non_extendable_content %}
+
+{% endblock %}
+{% block content %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/vendor_list.css' %}">
+<style>
+.category-add
+{
+     display: flex;
+     width: 100%;
+     align-items: center;
+     flex-direction: row;
+     justify-content:space-between;
+
+}
+.category-add button{
+    color:white;
+    background-color:#11C46E;
+    padding:5px;
+    border-radius:4px;
+}
+</style>
+<div class="vendors-header-above">
+    <div><h3>Category</h3></div>
+    <div>
+        <a href="{% url 'admin_page' %}">Home</a>/<a href="">Categories</a>    
+    </div>
+</div>
+ <div class="category-add">
+     <div>Category</div>
+     <div>
+        <a href="{%  url 'create-category-page' %}"><button >Add Category</button></a></div>
+ </div>
+<div class="vendors-table">
+    <table>
+        <thead>
+            <tr class="table-header">
+                <th>S. No.</th>
+                <th>Category Name</th>
+                <th>status</th>
+                <th>Acton</th>   
+            </tr>
+        </thead>
+        <tbody>
+            {% for category in categories %}
+            <tr>
+                <td>{{ category.id }}</td>
+                <td>{{ category.category_name }}</td>
+                <td>{{ category.status }}</td>
+                <td>
+                    <form action="{% url 'toggle_category_status' category.id %}" method="post">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-primary">
+                            {% if category.status == "Active" %}
+                                Deactivate
+                            {% else %}
+                                Activate
+                            {% endif %}
+                        </button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

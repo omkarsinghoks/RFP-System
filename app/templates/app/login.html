@@ -1,0 +1,88 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>RFP System - Login</title>
+    <link rel="stylesheet" href="{% static 'css/login.css' %}">
+    <style>
+        .floating-message {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            padding: 15px 20px;
+            border-radius: 5px;
+            color: #fff;
+            font-size: 14px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            display: none; 
+        }
+        
+        .floating-message.error {
+            background-color: #dc3545; 
+        }
+        .floating-message.success
+        {
+            background-color: #28a745; 
+        }
+    </style>
+    
+</head>
+ {% comment %} .floating-message.success {
+            background-color: #28a745; 
+        } {% endcomment %}
+<body>
+    <div class="login-container">
+        <div class="login-header">
+            <h2>Welcome to RFP System!</h2>
+            
+        </div>
+        <form class="login-form" method="post" action="{% url 'login' %}">
+            
+            {% csrf_token %}
+            <label for="email">Email</label>
+            <input type="email" name="email" placeholder="Enter Email" required>
+            <label for="password">Password</label>
+            <input type="password" name="password" placeholder="Enter password" required>
+            <button type="submit" class="login-btn">Log In</button>
+        </form>
+        <div class="register-link">
+            <a href="{% url 'registerVendor' %}">Register as Vendor</a>
+        </div>
+        <div class="register-link">
+            <a href="{% url 'registerAdmin' %}" >Register as Admin</a>
+        </div>
+        <div class="forgot-password">
+            <a href="{% url 'forgotPassword' %}">Forgot your password?</a>
+        </div>
+        <div class="copyright">
+            © Copyright RFP System
+        </div>
+
+        {% comment %} {% if request.session.success_message %}
+        <div id="floating-message" class="floating-message"></div>
+        {% endif %} {% endcomment %}
+        <div id="floating-message" class="floating-message"></div>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const floatingMessage = document.getElementById('floating-message');
+            {% if messages %}
+                {% for message in messages %}
+                    floatingMessage.textContent = "{{ message }}";
+                    {% if message.tags == 'success' %}
+                        floatingMessage.classList.add('success');
+                    {% else %}
+                        floatingMessage.classList.add('error');
+                    {% endif %}
+                    floatingMessage.style.display = 'block';
+                    setTimeout(() => {
+                        floatingMessage.style.display = 'none';
+                    }, 5000); // Auto-hide after 5 seconds
+                {% endfor %}
+            {% endif %}
+        }); 
+    </script>
+</body>
+</html>

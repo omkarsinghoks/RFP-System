@@ -1,0 +1,137 @@
+
+{% extends 'app/admin_page.html' %}
+{% block non_extendable_content %}
+           
+ {% endblock %}
+
+{% block content %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/vendor_list.css' %}">
+<style>
+    .text-danger {
+        color: #dc3545; 
+        font-size: 14px; 
+        font-weight: bold; 
+        margin-top: 5px; 
+        display: block; 
+    }
+    .floating-message {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        z-index: 1000;
+        padding: 15px 20px;
+        border-radius: 5px;
+        color: #fff;
+        font-size: 14px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        display: none; 
+    }
+    .floating-message.success {
+    background-color: #28a745; 
+    }
+    .floating-message.error {
+        background-color: #dc3545; 
+    }
+
+.add_rfp
+{
+    display: flex;
+    width: 100%;
+    align-items: center;
+    flex-direction: row;
+    justify-content:space-between;
+
+}
+.add_rfp button{
+   color:white;
+   background-color:#11C46E;
+   padding:5px;
+  
+}
+.vendor-header-above
+{
+    display: flex;
+    width: 100%;
+    align-items: center;
+    flex-direction: row;
+    justify-content:space-between;
+}
+.vendor-header-above a
+{
+    text-decoration: none;
+    color:black;
+}
+</style>
+
+<div class="vendor-header-above">
+    <div><h3>RFP List</h3></div>
+    <div>
+        <a href="{% url 'admin_page' %}">Home</a>/<a href="">RFP</a>    
+    </div>
+</div>
+
+<div class="vendors-table">
+    <div class="add_rfp">
+        <div> <h3>RFPs</h3></div>
+        <div><a href="{%  url 'addCategory' %}"><button>Add Category</button></a></div>
+     </div>
+    <table>
+        <thead>
+            <tr class="table-header">
+                <th>RFP No.</th>
+                <th>RFP Title</th>
+                <th>RFP Last Date</th>
+                <th>Min Amount</th>
+                <th>Max Amount</th>
+                <th>Status</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for rfp_list in rfp_list%}
+            <tr>
+                <td>{{forloop.counter}}</td>
+                <td>{{rfp_list.item_name}}</td>
+                <td>{{rfp_list.last_date}}</td>
+                <td>{{rfp_list.min_amount}}</td>
+                <td>{{rfp_list.max_amount}}</td>
+                <td><span class="status-open">{{rfp_list.status}}</span></td>
+                <td>
+                <form action="{% url 'toggle_rfp_status' rfp_list.id %}" method="post">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-primary">
+                        {% if rfp.status == "OPEN" %}
+                            Close
+                        {% else %}
+                            Open
+                        {% endif %}
+                    </button>
+                </form>
+            </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <div id="floating-message" class="floating-message"></div>
+</div>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const floatingMessage = document.getElementById('floating-message');
+        {% if messages %}
+            {% for message in messages %}
+                floatingMessage.textContent = "{{ message }}";
+                {% if message.tags == 'success' %}
+                    floatingMessage.classList.add('success');
+                {% else %}
+                    floatingMessage.classList.add('error');
+                {% endif %}
+                floatingMessage.style.display = 'block';
+                setTimeout(() => {
+                    floatingMessage.style.display = 'none';
+                }, 5000); // Auto-hide after 5 seconds
+            {% endfor %}
+        {% endif %}
+    });
+  </script>
+{% endblock %}

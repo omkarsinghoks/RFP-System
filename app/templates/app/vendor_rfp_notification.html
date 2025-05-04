@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>New RFP Notification</title>
+</head>
+<body>
+    <h2>Hello {{ vendor.user.first_name }} {{ vendor.user.last_name }},</h2>
+    <p>A new RFP has been created that matches your category:</p>
+    <p><strong>RFP Name:</strong> {{ rfp.item_name }}</p>
+    <p><strong>Description:</strong> {{ rfp.description }}</p>
+    <p><strong>Deadline:</strong> {{ rfp.deadline }}</p>
+    <p>Please log in to the RFP system to submit your quote.</p>
+    <p>Thank you,<br>The RFP System Team</p>
+</body>
+</html>

@@ -1,0 +1,114 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f8f9fa;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+   
+    background-color: white;
+    
+}
+
+.breadcrumb {
+    font-size: 14px;
+    color: #888;
+    margin-bottom: 10px;
+}
+
+.breadcrumb a {
+    text-decoration: none;
+    color: #007bff;
+}
+
+.breadcrumb span {
+    color: #555;
+}
+
+.form-wrapper {
+    background-color: #eef2f7;
+    padding: 20px;
+    border-radius: 5px;
+}
+
+h3 {
+    margin-bottom: 20px;
+    color: #333;
+}
+
+form {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group label {
+    font-size: 14px;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.form-group input,
+.form-group select {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+.form-group select {
+    height: 80px;
+}
+
+.form-actions {
+    grid-column: span 2;
+    display: flex;
+    gap: 10px;
+}
+
+.btn-submit {
+    background-color: #007bff;
+    color: white;
+    padding: 8px 15px;
+    padding-left: 10px;
+    border: none;
+    height: 30px;
+    width: 100px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.btn-cancel {
+    background-color: #ddd;
+    color: #555;
+    padding: 8px 15px;
+    padding-left: 10px;
+    border: none;
+    height: 30px;
+    width: 100px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+.form-rfp-create
+{
+    width: 90%;
+    height: 500px
+    
+    
+}
+
+
+
+.text-danger {
+    color: #dc3545; /* Bootstrap red color for danger */
+    font-size: 14px; /* Adjust font size */
+    font-weight: bold; /* Make the text bold */
+    margin-top: 5px; /* Add some spacing above the message */
+    display: block; /* Ensure it appears on a new line */
+}

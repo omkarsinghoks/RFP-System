@@ -1,0 +1,62 @@
+.rfp-list {
+    margin: 20px;
+    font-family: Arial, sans-serif;
+}
+
+.rfp-list table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+.rfp-list th, .rfp-list td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+.rfp-list th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+}
+
+.status-open {
+    color: green;
+    font-weight: bold;
+}
+
+.action-close {
+    color: red;
+    text-decoration: none;
+}
+
+.action-close:hover {
+    text-decoration: underline;
+}
+
+.pagination {
+    text-align: center;
+}
+
+.pagination a {
+    margin: 0 5px;
+    text-decoration: none;
+    color: #007bff;
+}
+
+.pagination a:hover {
+    text-decoration: underline;
+}
+.rfp-header-above
+{
+     display: flex;
+     justify-content:space-between;
+        align-items: center;
+}
+.rfp-header-above a
+{
+    margin: 0;
+    padding: 0;
+    text-decoration: none;
+    color: black;
+}

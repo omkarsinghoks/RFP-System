@@ -1,0 +1,46 @@
+{% extends 'app/admin_page.html' %}
+{% block non_extendable_content %}
+           
+ {% endblock %}
+{% block content %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/vendor_list.css' %}">
+
+<div class="vendors-header-above">
+     <div><h3>RFP Quotes</h3></div>
+     <div>
+         <a href="{% url 'admin_page' %}">Home</a>/<a href="">RFP Quote</a>    
+     </div>
+</div>
+<div>RFP Quotes</div>
+<div class="vendors-table">
+    <table>
+        <thead>
+            <tr class="table-header">
+                <th>S. No.</th>
+                <th>RFP NO</th>
+                <th>Item Name</th>
+                <th>Vender id</th>   
+                <th>Vender Proce</th>
+                <th>Quantity</th>
+                <th>Total Price</th> 
+            </tr>
+        </thead>
+        <tbody>
+            
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                
+
+             </tr>
+           
+        </tbody>
+    </table>
+</div>
+{% endblock %}

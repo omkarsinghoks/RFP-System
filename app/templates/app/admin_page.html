@@ -1,0 +1,63 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/admin_page.css' %}">
+    <title>{% block title %}Dashboard{% endblock %}</title>
+</head>
+<body>
+    <div class="navbar">
+        <div class="logo">Velocity</div>
+        <div class="user-info">
+            <span>Welcome {{ request.user.first_name}}</span>
+            <a href="{% url 'logout' %}">Logout</a>
+        </div>
+    </div>
+    <div class="container">
+        <div class="sidebar">
+            <ul>
+                <li><a href="{% url 'admin_page' %}">Dashboard</a></li>
+                <li><a href="{% url 'vendor_list' %}">Vendors</a></li>
+                <li><a href="{% url 'rfp_list' %}">RFP Lists</a></li>
+                <li><a href="{% url 'rfp_quotes' %}">RFP Quotes</a></li>
+                <li><a href="{% url 'category' %}">Categories</a></li>
+            </ul>
+        </div>
+        <div class="content">
+            {% comment %} {% block header %}
+                <h1>{% block header_title %}Dashboard{% endblock %}</h1>
+            {% endblock %} {% endcomment %}
+            {% block non_extendable_content %}
+             <h2>Welocome To RFP System</h2>
+            {% endblock %}
+            
+            
+            {% block content %}
+            <!-- Default content -->
+            {% endblock %}
+        </div>
+    </div>
+    <script>
+        // Display Django messages as floating pop-ups
+        document.addEventListener('DOMContentLoaded', function () {
+            const floatingMessage = document.getElementById('floating-message');
+            {% if messages %}
+                {% for message in messages %}
+                    floatingMessage.textContent = "{{ message }}";
+                    {% if message.tags == 'success' %}
+                        floatingMessage.classList.add('success');
+                    {% else %}
+                        floatingMessage.classList.add('error');
+                    {% endif %}
+                    floatingMessage.style.display = 'block';
+                    setTimeout(() => {
+                        floatingMessage.style.display = 'none';
+                    }, 5000); // Auto-hide after 5 seconds
+                {% endfor %}
+            {% endif %}
+        });
+    </script>
+</body>
+</html>

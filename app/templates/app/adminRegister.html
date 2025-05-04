@@ -1,0 +1,126 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RFP System Registration</title>
+    <link rel="stylesheet"  href="{% static 'css/admin_register.css' %}"
+    >
+    <style>
+        .text-danger {
+            color: #dc3545; 
+            font-size: 14px; 
+            font-weight: bold; 
+            margin-top: 5px; 
+            display: block; 
+        }
+        .floating-message {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            padding: 15px 20px;
+            border-radius: 5px;
+            color: #fff;
+            font-size: 14px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            display: none; 
+        }
+        .floating-message.success {
+            background-color: #28a745; 
+        }
+        .floating-message.error {
+            background-color: #dc3545; /* Red for error */
+        }
+        
+    </style>
+</head>
+<body>
+    <div class="registration-container">
+        <div class="registration-box">
+            <div class="header">
+                <h2>Welcome to RFP System!</h2>
+                <p>Sign up to continue</p>
+            </div>
+            
+            <form method="POST" action="{% url 'registerAdmin' %}">
+                {% csrf_token %}
+                
+                <div class="form-group">
+                    <label for="first-name">First Name</label>
+                    <input type="text" id="first-name" name="first_name" placeholder="First Name" value="{{ form_data.first_name|default:'' }}">
+
+                    {% if field_errors.first_name %}
+                    <span class="text-danger">{{ field_errors.first_name }}</span>
+                {% endif %} 
+                </div>
+            
+                <div class="form-group">
+                    <label for="last-name">Last Name</label>
+                    <input type="text" id="last-name" name="last_name" placeholder="Last Name" value="{{ form_data.last_name|default:'' }}">
+                    {% if field_errors.last_name %}
+                    <span class="text-danger">{{ field_errors.last_name }}</span>
+                {% endif %} 
+                   
+                </div>
+            
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" placeholder="Email" value="{{ form_data.email|default:'' }}">
+                    {% if field_errors.email %}
+                        <span class="text-danger">{{ field_errors.email }}</span>
+                    {% endif %} 
+                </div>
+            
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" placeholder="Enter password">
+                    {% if field_errors.password %}
+                        <span class="text-danger">{{ field_errors.password }}</span>
+                    {% endif %} 
+                </div>
+            
+                <div class="form-group">
+                    <label for="confirm-password">Confirm Password</label>
+                    <input type="password" id="confirm-password" name="confirm_password" placeholder="Enter password">
+                    {% if field_errors.confirm_password %}
+                        <span class="text-danger">{{ field_errors.confirm_password }}</span>
+                    {% endif %} 
+                    
+                </div>
+            
+                <button type="submit" class="signup-btn">Sign Up</button>
+            
+                <div class="form-footer">
+                    <a href="{% url 'registerVendor' %}" class="vendor-link">Register as Vendor</a>
+                    <a href="{% url 'forgotPassword' %}" class="forgot-password">Forgot your password?</a>
+                    <a href="{% url 'login' %}" >Already Registered ? Login</a>
+                </div>
+            </form>
+            
+        </div>
+    </div>
+    <div id="floating-message" class="floating-message"></div>
+    <script>
+        // Display Django messages as floating pop-ups
+        document.addEventListener('DOMContentLoaded', function () {
+            const floatingMessage = document.getElementById('floating-message');
+            {% if messages %}
+                {% for message in messages %}
+                    floatingMessage.textContent = "{{ message }}";
+                    {% if message.tags == 'success' %}
+                        floatingMessage.classList.add('success');
+                    {% else %}
+                        floatingMessage.classList.add('error');
+                    {% endif %}
+                    floatingMessage.style.display = 'block';
+                    setTimeout(() => {
+                        floatingMessage.style.display = 'none';
+                    }, 5000); // Auto-hide after 5 seconds
+                {% endfor %}
+            {% endif %}
+        });
+    </script>
+</body>
+</html>

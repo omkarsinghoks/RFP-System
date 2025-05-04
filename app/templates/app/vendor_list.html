@@ -1,0 +1,63 @@
+{% extends 'app/admin_page.html' %}
+{% block non_extendable_content %}
+           
+ {% endblock %}
+{% block content %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/vendor_list.css' %}">
+
+<div class="vendors-header-above">
+     <div><h3>Vendors List</h3></div>
+     <div>
+         <a href="{% url 'admin_page' %}">Home</a>/<a href="">Vendor</a>    
+     </div>
+</div>
+<div>Vendors</div>
+<div class="vendors-table">
+    <table>
+        <thead>
+            <tr class="table-header">
+                <th>S. No.</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Email</th>
+                <th>Contact No</th>
+                <th>Vendor Status</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for data in combined_data %}
+            <tr>
+                <td>{{ forloop.counter }}</td>
+                <td>{{ data.user.first_name }}</td>
+                <td>{{ data.user.last_name }}</td>
+                <td>{{ data.user.email }}</td>
+                <td>{{ data.vendor_detail.mobile_number }}</td>
+                {% if not data.vendor_detail or not data.vendor_detail.vendor_status %}
+                <td></span></td>
+                {% else %}
+                    <td><span class="status rejected ">{{ data.vendor_detail.vendor_status }}</span></td>
+                {% endif %}
+
+
+                {% if data.vendor_detail and data.vendor_detail.id %}
+                {% if data.vendor_detail.vendor_status == "Rejected" %}
+                <td>
+                    <a href="{% url 'toggle_vendor_status' data.vendor_detail.id %}" class="action-link green">Approve</a>
+                </td>
+                {% else %}
+                <td>
+                    <a href="{% url 'toggle_vendor_status' data.vendor_detail.id %}" class="action-link red">Rejected</a>
+                </td>
+                {% endif %}
+                            {% else %}
+                <td>No action available</td>
+            {% endif %}
+
+                            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
